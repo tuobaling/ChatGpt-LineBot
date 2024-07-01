@@ -7,6 +7,7 @@ from api.chatgpt import ChatGPT
 import os
 
 from api.my_commands.stock_gpt import stock_gpt, get_reply
+import pandas as pd
 
 line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
 line_handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
