@@ -6,8 +6,11 @@ from api.chatgpt import ChatGPT
 
 import os
 
+from my_commands.stock_gpt import stock_gpt, get_reply
+
 line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
 line_handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
+df_stock_names = pd.read_csv('US_stock_names.csv')
 working_status = os.getenv("DEFALUT_TALKING", default = "true").lower() == "true"
 
 app = Flask(__name__)
