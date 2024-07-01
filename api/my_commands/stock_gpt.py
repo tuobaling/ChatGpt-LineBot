@@ -1,9 +1,9 @@
 import openai
-from replit import db
+#from replit import db
 import pandas as pd
-from my_commands.stock_price import Indicator
-from my_commands.stock_news_updated import get_html, get_news, get_stock_name
-from my_commands.stock_value import stock_fundamental
+from api.my_commands.stock_price import Indicator
+from api.my_commands.stock_news_updated import get_html, get_news, get_stock_name
+from api.my_commands.stock_value import stock_fundamental
 
 df_stock_names = pd.read_csv('US_stock_names.csv')
 
