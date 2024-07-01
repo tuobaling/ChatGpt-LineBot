@@ -33,6 +33,7 @@ def callback():
     try:
         line_handler.handle(body, signature)
     except InvalidSignatureError:
+        print("電子簽章錯誤, 請檢查密鑰是否正確？")
         abort(400)
     return 'OK'
 
@@ -41,23 +42,42 @@ def callback():
 def handle_message(event):
     global working_status
     
+    user_message = event.message.text
+      
     if event.message.type != "text":
         return
     
-    if event.message.text == "啟動":
+    if user_message == "啟動":
         working_status = True
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="我是時下流行的AI智能，目前可以為您服務囉，歡迎來跟我互動~"))
         return
 
-    if event.message.text == "安靜":
+    if user_message == "安靜":
         working_status = False
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="感謝您的使用，若需要我的服務，請跟我說 「啟動」 謝謝~"))
         return
     
+    if user_message == '大盤' or (user_message.upper() in list(
+        df_stock_names["short_stock_names"])):
+      working_status = True
+      reply_text = stock_gpt(user_message.upper())
+    # 一般訊息
+    else:
+      msg = [{
+        "role": "system",
+        "content": "reply in 繁體中文"
+      }, {
+        "role": "user",
+        "content": user_message
+      }]
+      reply_text = get_reply(msg)
+
+    api.reply_message(event.reply_token, TextSendMessage(text=reply_text))
+  
     if working_status:
         chatgpt.add_msg(f"Human:{event.message.text}?\n")
         reply_msg = chatgpt.get_response().replace("AI:", "", 1)
