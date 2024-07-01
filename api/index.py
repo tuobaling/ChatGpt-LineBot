@@ -74,17 +74,20 @@ def handle_message(event):
         "role": "user",
         "content": user_message
       }]
+      working_status = True
       reply_text = get_reply(msg)
 
-    api.reply_message(event.reply_token, TextSendMessage(text=reply_text))
-  
-    if working_status:
-        chatgpt.add_msg(f"Human:{event.message.text}?\n")
-        reply_msg = chatgpt.get_response().replace("AI:", "", 1)
-        chatgpt.add_msg(f"AI:{reply_msg}\n")
-        line_bot_api.reply_message(
+    line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=reply_msg))
+            TextSendMessage(text=reply_text))
+  
+    #if working_status:
+    #    chatgpt.add_msg(f"Human:{event.message.text}?\n")
+    #    reply_msg = chatgpt.get_response().replace("AI:", "", 1)
+    #    chatgpt.add_msg(f"AI:{reply_msg}\n")
+    #    line_bot_api.reply_message(
+    #        event.reply_token,
+    #        TextSendMessage(text=reply_msg))
 
 
 if __name__ == "__main__":
