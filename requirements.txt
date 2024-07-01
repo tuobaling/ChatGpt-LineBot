@@ -2,7 +2,6 @@ flask==2.2.2
 Werkzeug==2.3.7
 line-bot-sdk
 openai
-numpy = "^1.22.2"
 urllib3 = "^1.26.12"
 pandas = "2.1.1"
 bs4 = "^0.0.1"
