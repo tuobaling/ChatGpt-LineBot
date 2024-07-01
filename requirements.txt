@@ -2,6 +2,8 @@ flask==2.2.2
 Werkzeug==2.3.7
 line-bot-sdk
 openai
-pandas = 2.1.1
-bs4 = 0.0.1
-yfinance = 0.2.36
+numpy
+urllib3
+pandas
+bs4
+yfinance
